@@ -1,6 +1,6 @@
 """
 Music Trends Time Machine - Interactive Analytics Dashboard
-Modern Spotify-Inspired Gen-Z Theme
+Modern Spotify-Inspired Gen-Z Theme with Groovy Retro Vibes
 """
 import streamlit as st
 import pandas as pd
@@ -14,15 +14,17 @@ from utils import (
 
 # Page config
 st.set_page_config(
-    page_title="🎵 Music Trends Time Machine",
+    page_title="Music Trends Time Machine",
     page_icon="🎧",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed"
 )
 
-# Advanced Custom CSS for Modern Spotify Theme
+# Advanced Custom CSS for Modern Spotify Theme with Groovy Vibes
 st.markdown("""
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+    
     /* Root Colors */
     :root {
         --spotify-green: #1DB954;
@@ -50,8 +52,7 @@ st.markdown("""
     }
     
     [data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #0a0a0a 0%, #1a0f2e 100%) !important;
-        border-right: 1px solid rgba(29, 185, 84, 0.2) !important;
+        display: none !important;
     }
     
     /* Main Container */
@@ -59,13 +60,14 @@ st.markdown("""
         padding: 0 !important;
     }
     
-    /* Headers */
+    /* Groovy Retro Headers */
     h1, h2, h3, h4, h5, h6 {
         background: linear-gradient(135deg, var(--spotify-green), var(--accent-blue)) !important;
         -webkit-background-clip: text !important;
         -webkit-text-fill-color: transparent !important;
-        font-weight: 800 !important;
-        letter-spacing: -0.5px !important;
+        font-family: 'Righteous', cursive !important;
+        font-weight: 900 !important;
+        letter-spacing: -1px !important;
     }
     
     /* Main Header Special */
@@ -75,11 +77,55 @@ st.markdown("""
         margin-bottom: 1.5rem !important;
         text-shadow: 0 0 30px rgba(29, 185, 84, 0.3) !important;
         animation: glow 2s ease-in-out infinite !important;
+        text-transform: uppercase !important;
     }
     
     @keyframes glow {
         0%, 100% { filter: drop-shadow(0 0 20px rgba(29, 185, 84, 0.3)); }
         50% { filter: drop-shadow(0 0 30px rgba(124, 58, 237, 0.4)); }
+    }
+    
+    /* Top Navigation Tabs */
+    .nav-tabs-container {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        padding: 1.5rem;
+        background: linear-gradient(90deg, rgba(29, 185, 84, 0.05), rgba(124, 58, 237, 0.05)) !important;
+        border-bottom: 2px solid rgba(29, 185, 84, 0.3) !important;
+        border-radius: 16px !important;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+    }
+    
+    .nav-tab {
+        padding: 12px 24px !important;
+        background: rgba(29, 185, 84, 0.1) !important;
+        border: 2px solid rgba(29, 185, 84, 0.2) !important;
+        border-radius: 12px !important;
+        color: var(--text-secondary) !important;
+        font-family: 'Righteous', cursive !important;
+        font-size: 0.95rem !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+        cursor: pointer !important;
+        transition: all 0.3s ease !important;
+        white-space: nowrap !important;
+    }
+    
+    .nav-tab:hover {
+        background: rgba(29, 185, 84, 0.2) !important;
+        border-color: var(--spotify-green) !important;
+        color: var(--spotify-green) !important;
+        transform: translateY(-2px) !important;
+    }
+    
+    .nav-tab.active {
+        background: linear-gradient(135deg, var(--spotify-green), #15a049) !important;
+        border-color: var(--spotify-green) !important;
+        color: #000 !important;
+        font-weight: 800 !important;
+        box-shadow: 0 8px 25px rgba(29, 185, 84, 0.4) !important;
     }
     
     /* Cards and Containers */
@@ -119,7 +165,7 @@ st.markdown("""
     /* Buttons */
     .stButton > button {
         background: linear-gradient(135deg, var(--spotify-green), #15a049) !important;
-        color: var(--text-primary) !important;
+        color: #000 !important;
         border: none !important;
         border-radius: 24px !important;
         font-weight: 700 !important;
@@ -128,6 +174,7 @@ st.markdown("""
         text-transform: uppercase !important;
         letter-spacing: 0.5px !important;
         box-shadow: 0 4px 15px rgba(29, 185, 84, 0.3) !important;
+        font-family: 'Righteous', cursive !important;
     }
     
     .stButton > button:hover {
@@ -158,23 +205,6 @@ st.markdown("""
         color: var(--spotify-green) !important;
     }
     
-    .stSlider [data-testid="stSlider"] {
-        background: rgba(29, 185, 84, 0.1) !important;
-    }
-    
-    /* Selectbox, Multiselect */
-    [data-testid="stSelectbox"], [data-testid="stMultiSelect"] {
-        background: var(--card-light) !important;
-    }
-    
-    /* Radio Buttons */
-    [data-testid="stRadio"] {
-        padding: 1rem !important;
-        background: rgba(29, 185, 84, 0.05) !important;
-        border-radius: 12px !important;
-        border: 1px solid rgba(29, 185, 84, 0.2) !important;
-    }
-    
     /* Metrics */
     [data-testid="metric-container"] {
         background: linear-gradient(135deg, rgba(29, 185, 84, 0.1), rgba(124, 58, 237, 0.1)) !important;
@@ -192,30 +222,6 @@ st.markdown("""
     .secondary-text {
         color: var(--text-secondary) !important;
         font-size: 0.95rem !important;
-    }
-    
-    /* Tabs */
-    [data-testid="stTabs"] {
-        color: var(--text-primary) !important;
-    }
-    
-    /* Streamlit Sidebar text */
-    [data-testid="stSidebar"] .stRadio label {
-        padding: 12px 16px !important;
-        border-radius: 8px !important;
-        transition: all 0.3s ease !important;
-        font-weight: 500 !important;
-    }
-    
-    [data-testid="stSidebar"] .stRadio label:hover {
-        background: rgba(29, 185, 84, 0.15) !important;
-        color: var(--spotify-green) !important;
-    }
-    
-    /* Sections */
-    .section-divider {
-        border-top: 1px solid rgba(29, 185, 84, 0.2) !important;
-        margin: 2rem 0 !important;
     }
     
     /* Scroll Bar */
@@ -258,13 +264,6 @@ st.markdown("""
         background: transparent !important;
     }
     
-    /* Sidebar Title */
-    [data-testid="stSidebar"] [data-testid="stMarkdownContainer"] h1 {
-        font-size: 1.8rem !important;
-        margin-bottom: 2rem !important;
-        text-align: center !important;
-    }
-    
     /* Info, Warning, Error Messages */
     [data-testid="stAlert"] {
         border-radius: 12px !important;
@@ -272,15 +271,30 @@ st.markdown("""
         background: rgba(29, 185, 84, 0.1) !important;
     }
     
-    [data-testid="stAlert"][data-testid="stAlert"] > div:first-child {
-        color: var(--text-primary) !important;
+    /* Music Theme Elements */
+    .vinyl-record {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 30% 30%, #1DB954, #0f0f0f);
+        box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+        margin-right: 10px;
+    }
+    
+    .music-note {
+        display: inline-block;
+        font-size: 1.2rem;
+        margin: 0 4px;
     }
 </style>
+
+<link href='https://fonts.googleapis.com/css2?family=Righteous&display=swap' rel='stylesheet'>
 """, unsafe_allow_html=True)
 
 # Initialize session state
 if 'current_page' not in st.session_state:
-    st.session_state.current_page = 'home'
+    st.session_state.current_page = 'Home'
 
 # Load data
 @st.cache_data(ttl=3600)
@@ -293,30 +307,42 @@ except Exception as e:
     st.error(f"Error loading data: {e}")
     st.stop()
 
-# Sidebar Navigation
-with st.sidebar:
-    st.markdown("# 🎧 MUSIC TRENDS")
-    st.markdown("### Time Machine", help="Explore 100 years of music evolution")
-    st.markdown("---")
-    page = st.radio(
-        "EXPLORE",
-        ['Home', 'Temporal Analysis', 'What-If Simulator', 'Anomaly Detector', 'Story Mode'],
-        key='page_radio'
-    )
-    st.markdown("---")
-    st.markdown("""
-    <p style='text-align: center; color: #b3b3b3; font-size: 0.85rem; margin-top: 2rem;'>
-    🎵 Powered by Spotify Data • 1924-2024 • 10 Genres
-    </p>
-    """, unsafe_allow_html=True)
+# Top Navigation Tabs
+col_spacer, col_nav = st.columns([0.05, 0.95])
+with col_nav:
+    st.markdown('<div style="margin: 0; padding: 0;"></div>', unsafe_allow_html=True)
+    
+    nav_col1, nav_col2, nav_col3, nav_col4, nav_col5 = st.columns(5)
+    
+    pages = ['Home', 'Trends', 'Simulator', 'Anomalies', 'Stories']
+    
+    with nav_col1:
+        if st.button('Home', use_container_width=True, key='nav_home'):
+            st.session_state.current_page = 'Home'
+    with nav_col2:
+        if st.button('Trends', use_container_width=True, key='nav_trends'):
+            st.session_state.current_page = 'Trends'
+    with nav_col3:
+        if st.button('Simulator', use_container_width=True, key='nav_sim'):
+            st.session_state.current_page = 'Simulator'
+    with nav_col4:
+        if st.button('Anomalies', use_container_width=True, key='nav_anomaly'):
+            st.session_state.current_page = 'Anomalies'
+    with nav_col5:
+        if st.button('Stories', use_container_width=True, key='nav_stories'):
+            st.session_state.current_page = 'Stories'
+
+st.markdown("---")
+
+page = st.session_state.current_page
 
 # ==================== HOME PAGE ====================
 if page == 'Home':
-    st.markdown('<h1 class="main-header">🎧 MUSIC TRENDS TIME MACHINE</h1>', unsafe_allow_html=True)
+    st.markdown('<h1 class="main-header">MUSIC TRENDS TIME MACHINE</h1>', unsafe_allow_html=True)
     
     st.markdown("""
     <div class="feature-card">
-        <h3 style='color: #1DB954; margin-bottom: 0.5rem;'>An Interactive Analytics Dashboard</h3>
+        <h3 style='color: #1DB954; margin-bottom: 0.5rem;'>AN INTERACTIVE ANALYTICS DASHBOARD</h3>
         <p style='font-size: 1.1rem; color: #b3b3b3; margin-bottom: 1rem;'>
         Explore how musical characteristics have evolved over a century of sound using Spotify data. 
         From the roaring twenties to the streaming era, discover the trends that shaped our culture.
@@ -327,23 +353,23 @@ if page == 'Home':
     # Dataset Overview
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.metric("🎵 Total Tracks", f"{len(df):,}")
+        st.metric("TOTAL TRACKS", f"{len(df):,}")
     with col2:
-        st.metric("📅 Time Span", f"{int(df['year'].min())}-{int(df['year'].max())}")
+        st.metric("TIME SPAN", f"{int(df['year'].min())}-{int(df['year'].max())}")
     with col3:
-        st.metric("🎸 Unique Genres", df['genre'].nunique())
+        st.metric("UNIQUE GENRES", df['genre'].nunique())
     
     st.markdown("---")
     
     # Features Grid
-    st.markdown("### ✨ WHAT YOU CAN DO")
+    st.markdown('<h2 style="text-align: center; margin-top: 2rem;">WHAT YOU CAN DO</h2>', unsafe_allow_html=True)
     
     col1, col2 = st.columns(2)
     
     with col1:
         st.markdown("""
         <div class="feature-card">
-            <h3>📈 Temporal Trend Analysis</h3>
+            <h3>TEMPORAL TRENDS</h3>
             <p style='color: #b3b3b3;'>
             Track how audio features like energy, danceability, and valence have evolved across decades. 
             Filter by genre and year to discover patterns that shaped modern music.
@@ -353,7 +379,7 @@ if page == 'Home':
         
         st.markdown("""
         <div class="feature-card">
-            <h3>🚨 Anomaly Detector</h3>
+            <h3>ANOMALY DETECTION</h3>
             <p style='color: #b3b3b3;'>
             Discover sudden, unusual shifts in music trends. Use our anomaly detection algorithm 
             to find pivotal moments when the sound of music dramatically changed.
@@ -364,7 +390,7 @@ if page == 'Home':
     with col2:
         st.markdown("""
         <div class="feature-card">
-            <h3>🎛️ What-If Simulator</h3>
+            <h3>WHAT-IF SIMULATOR</h3>
             <p style='color: #b3b3b3;'>
             Customize your perfect playlist by adjusting feature weights. See how different 
             recommendation strategies would rank genres across decades.
@@ -374,17 +400,20 @@ if page == 'Home':
         
         st.markdown("""
         <div class="feature-card">
-            <h3>📖 Story Mode</h3>
+            <h3>STORY MODE</h3>
             <p style='color: #b3b3b3;'>
             Follow a guided narrative through music history. Discover key insights and pivotal moments 
             that shaped how we listen to music today.
             </p>
         </div>
         """, unsafe_allow_html=True)
+    
+    st.markdown("---")
+    st.markdown("<p style='text-align: center; color: #b3b3b3; margin-top: 2rem;'>Navigate using the tabs above to explore the full experience</p>", unsafe_allow_html=True)
 
 # ==================== TEMPORAL TREND ANALYSIS ====================
-elif page == 'Temporal Analysis':
-    st.markdown('<h1 class="main-header">📈 TEMPORAL TRENDS</h1>', unsafe_allow_html=True)
+elif page == 'Trends':
+    st.markdown('<h1 class="main-header">TEMPORAL TRENDS</h1>', unsafe_allow_html=True)
     st.markdown("<p style='color: #b3b3b3; font-size: 1.05rem;'>Watch how music characteristics evolve over time</p>", unsafe_allow_html=True)
     
     st.markdown("---")
@@ -392,7 +421,7 @@ elif page == 'Temporal Analysis':
     col1, col2, col3 = st.columns(3)
     with col1:
         year_range = st.slider(
-            "📅 Year Range",
+            "Year Range",
             int(df['year'].min()),
             int(df['year'].max()),
             (1950, 2024),
@@ -400,13 +429,13 @@ elif page == 'Temporal Analysis':
         )
     with col2:
         selected_genres = st.multiselect(
-            "🎸 Genres",
+            "Genres",
             options=sorted(df['genre'].unique().tolist()),
             default=['Pop', 'Rock', 'Hip-Hop']
         )
     with col3:
         feature = st.selectbox(
-            "🎵 Audio Feature",
+            "Audio Feature",
             ['energy', 'danceability', 'valence', 'acousticness', 'tempo', 'loudness']
         )
     
@@ -441,17 +470,17 @@ elif page == 'Temporal Analysis':
     st.plotly_chart(fig, use_container_width=True)
     
     # Show insights
-    st.markdown("### 💡 AI INSIGHTS")
+    st.markdown("### AI INSIGHTS")
     insights = get_anomaly_insights(filtered_df, feature)
     if insights:
         for insight in insights:
-            st.markdown(f"<div class='insight-box'>✨ {insight}</div>", unsafe_allow_html=True)
+            st.markdown(f"<div class='insight-box'>{insight}</div>", unsafe_allow_html=True)
     else:
-        st.markdown(f"<div class='insight-box'>✨ No significant anomalies detected in {feature} for the selected period.</div>", unsafe_allow_html=True)
+        st.markdown(f"<div class='insight-box'>No significant anomalies detected in {feature} for the selected period.</div>", unsafe_allow_html=True)
 
 # ==================== WHAT-IF SIMULATOR ====================
-elif page == 'What-If Simulator':
-    st.markdown('<h1 class="main-header">🎛️ WHAT-IF SIMULATOR</h1>', unsafe_allow_html=True)
+elif page == 'Simulator':
+    st.markdown('<h1 class="main-header">WHAT-IF SIMULATOR</h1>', unsafe_allow_html=True)
     st.markdown("<p style='color: #b3b3b3; font-size: 1.05rem;'>Design your perfect playlist recommendation algorithm</p>", unsafe_allow_html=True)
     
     st.markdown("---")
@@ -459,20 +488,20 @@ elif page == 'What-If Simulator':
     col1, col2 = st.columns([1, 2.2])
     
     with col1:
-        st.markdown("### 🎚️ ADJUST WEIGHTS")
+        st.markdown("### ADJUST WEIGHTS")
         weights = {
-            'energy': st.slider('🔥 Energy', 0.0, 1.0, 0.5, step=0.1),
-            'danceability': st.slider('💃 Danceability', 0.0, 1.0, 0.5, step=0.1),
-            'valence': st.slider('😊 Positivity', 0.0, 1.0, 0.5, step=0.1),
-            'acousticness': st.slider('🎸 Acousticness', 0.0, 1.0, 0.3, step=0.1),
-            'tempo': st.slider('⚡ Tempo', 0.0, 1.0, 0.4, step=0.1),
-            'instrumentalness': st.slider('🎹 Instrumental', 0.0, 1.0, 0.2, step=0.1),
-            'liveness': st.slider('🎤 Liveness', 0.0, 1.0, 0.3, step=0.1),
-            'speechiness': st.slider('🗣️ Spoken', 0.0, 1.0, 0.1, step=0.1),
+            'energy': st.slider('ENERGY', 0.0, 1.0, 0.5, step=0.1),
+            'danceability': st.slider('DANCEABILITY', 0.0, 1.0, 0.5, step=0.1),
+            'valence': st.slider('POSITIVITY', 0.0, 1.0, 0.5, step=0.1),
+            'acousticness': st.slider('ACOUSTICNESS', 0.0, 1.0, 0.3, step=0.1),
+            'tempo': st.slider('TEMPO', 0.0, 1.0, 0.4, step=0.1),
+            'instrumentalness': st.slider('INSTRUMENTAL', 0.0, 1.0, 0.2, step=0.1),
+            'liveness': st.slider('LIVENESS', 0.0, 1.0, 0.3, step=0.1),
+            'speechiness': st.slider('SPOKEN WORD', 0.0, 1.0, 0.1, step=0.1),
         }
     
     with col2:
-        year_range = st.slider("📅 Year Range", int(df['year'].min()), int(df['year'].max()), (1950, 2024))
+        year_range = st.slider("Year Range", int(df['year'].min()), int(df['year'].max()), (1950, 2024), key='sim_year')
         
         # Filter and calculate scores
         sim_df = df[(df['year'] >= year_range[0]) & (df['year'] <= year_range[1])].copy()
@@ -510,7 +539,7 @@ elif page == 'What-If Simulator':
         st.plotly_chart(fig, use_container_width=True)
     
     st.markdown("---")
-    st.markdown("### 🏆 GENRE RANKINGS")
+    st.markdown("### GENRE RANKINGS")
     genre_scores = sim_df.groupby('genre')['custom_score'].mean().sort_values(ascending=False)
     fig = px.bar(
         x=genre_scores.values,
@@ -530,8 +559,8 @@ elif page == 'What-If Simulator':
     st.plotly_chart(fig, use_container_width=True)
 
 # ==================== ANOMALY DETECTOR ====================
-elif page == 'Anomaly Detector':
-    st.markdown('<h1 class="main-header">🚨 ANOMALY DETECTOR</h1>', unsafe_allow_html=True)
+elif page == 'Anomalies':
+    st.markdown('<h1 class="main-header">ANOMALY DETECTOR</h1>', unsafe_allow_html=True)
     st.markdown("<p style='color: #b3b3b3; font-size: 1.05rem;'>Discover when music fundamentally changed</p>", unsafe_allow_html=True)
     
     st.markdown("---")
@@ -539,12 +568,12 @@ elif page == 'Anomaly Detector':
     col1, col2 = st.columns(2)
     with col1:
         feature = st.selectbox(
-            "🎵 Select Feature",
+            "Select Feature",
             ['energy', 'danceability', 'valence', 'acousticness', 'tempo', 'loudness'],
             key='anomaly_feature'
         )
     with col2:
-        sensitivity = st.slider("🎚️ Detection Sensitivity", 1.0, 3.0, 2.0, step=0.1)
+        sensitivity = st.slider("Detection Sensitivity", 1.0, 3.0, 2.0, step=0.1)
     
     st.markdown("---")
     
@@ -574,7 +603,7 @@ elif page == 'Anomaly Detector':
             x=anomaly_years['year'],
             y=anomaly_years[feature],
             mode='markers',
-            name='⚠️ ANOMALIES DETECTED',
+            name='ANOMALIES DETECTED',
             marker=dict(size=16, color='#ff006e', symbol='star', line=dict(color='#ffffff', width=2))
         ))
     
@@ -589,24 +618,24 @@ elif page == 'Anomaly Detector':
     st.plotly_chart(fig, use_container_width=True)
     
     # Display anomaly insights
-    st.markdown("### 📍 DETECTED ANOMALIES")
+    st.markdown("### DETECTED ANOMALIES")
     if len(anomalies) > 0:
         for idx in anomalies:
             year = int(yearly.iloc[idx]['year'])
             value = yearly.iloc[idx][feature]
             st.markdown(
-                f"<div class='insight-box'>⚠️ <b>{year}</b> — Unusual {feature} level detected ({value:.3f})</div>",
+                f"<div class='insight-box'><b>{year}</b> — Unusual {feature} level detected ({value:.3f})</div>",
                 unsafe_allow_html=True
             )
     else:
         st.markdown(
-            "<div class='insight-box'>✨ No significant anomalies detected with current sensitivity setting.</div>",
+            "<div class='insight-box'>No significant anomalies detected with current sensitivity setting.</div>",
             unsafe_allow_html=True
         )
 
 # ==================== STORY MODE ====================
-elif page == 'Story Mode':
-    st.markdown('<h1 class="main-header">📖 STORY MODE</h1>', unsafe_allow_html=True)
+elif page == 'Stories':
+    st.markdown('<h1 class="main-header">STORY MODE</h1>', unsafe_allow_html=True)
     st.markdown("<p style='color: #b3b3b3; font-size: 1.05rem;'>Follow music through the ages</p>", unsafe_allow_html=True)
     
     st.markdown("---")
@@ -614,7 +643,7 @@ elif page == 'Story Mode':
     stories = generate_story_insights(df)
     
     story_num = st.selectbox(
-        "📚 Select a story",
+        "Select a story",
         range(len(stories)),
         format_func=lambda x: f"Chapter {x+1}: {stories[x]['title']}"
     )
@@ -629,7 +658,7 @@ elif page == 'Story Mode':
     """, unsafe_allow_html=True)
     
     st.markdown("---")
-    st.markdown("### 📊 VISUAL STORY")
+    st.markdown("### VISUAL STORY")
     
     # Visualization for this story
     if story['feature'] in ['energy', 'danceability', 'acousticness', 'valence', 'tempo', 'loudness']:
@@ -670,7 +699,7 @@ elif page == 'Story Mode':
     # Chapter indicator
     st.markdown(f"""
     <div style='text-align: center; margin-top: 2rem; padding: 1rem; background: rgba(29, 185, 84, 0.1); border-radius: 12px;'>
-        <p style='color: #1DB954; font-weight: bold; font-size: 1.1rem;'>📖 CHAPTER {story_num + 1} OF {len(stories)}</p>
+        <p style='color: #1DB954; font-weight: bold; font-size: 1.1rem;'>CHAPTER {story_num + 1} OF {len(stories)}</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -678,7 +707,7 @@ elif page == 'Story Mode':
 st.markdown("---")
 st.markdown("""
 <div style='text-align: center; padding: 2rem; color: #b3b3b3;'>
-    <p>🎧 <b>MUSIC TRENDS TIME MACHINE</b></p>
+    <p style='font-family: Righteous, cursive; font-size: 1.2rem;'>MUSIC TRENDS TIME MACHINE</p>
     <p style='font-size: 0.9rem; margin-top: 0.5rem;'>Powered by Spotify Data | Explore 100 Years of Sound | 1924-2024</p>
 </div>
 """, unsafe_allow_html=True)

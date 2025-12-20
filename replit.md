@@ -8,15 +8,26 @@ The project serves as a product-like analytics application that combines explora
 
 ## User Preferences
 
-Preferred communication style: Simple, everyday language.
+- **Communication Style**: Simple, everyday language
+- **Design Style**: Gen-Z cool with modern Spotify theme, groovy retro aesthetics
+- **Navigation**: Top tabs instead of sidebar
+- **Typography**: Groovy/Righteous font for main headers
+- **Emoji Usage**: None (clean, uppercase text preferred)
 
 ## System Architecture
 
 ### Frontend Architecture
 - **Framework**: Streamlit - chosen for rapid prototyping of data-focused web applications
 - **Visualization**: Plotly (both graph_objects and express) for interactive, zoomable charts
-- **Styling**: Custom CSS embedded in Streamlit for branded appearance (Spotify green theme)
+- **Styling**: Custom CSS embedded in Streamlit with groovy retro theme and Spotify green color scheme
 - **State Management**: Streamlit session state for page navigation and user preferences
+- **Typography**: Google Fonts - Righteous for groovy, retro aesthetics
+
+### Design Features
+- **Color Palette**: Spotify green (#1DB954), dark backgrounds, purple/blue gradients, cyan accents
+- **Effects**: Glowing animations, backdrop blur (glassmorphism), smooth transitions, hover states
+- **Layout**: Top navigation tabs (Home, Trends, Simulator, Anomalies, Stories) with clean, modern design
+- **Accessibility**: High contrast, large readable text, responsive layout
 
 ### Data Layer
 - **Data Generation**: Synthetic Spotify-like data generation when real data unavailable
@@ -42,6 +53,41 @@ Preferred communication style: Simple, everyday language.
 - **Separation of Concerns**: Data handling, utilities, and UI in separate modules
 - **Caching Strategy**: Data cached at application level to avoid regeneration
 - **Error Handling**: Graceful error display with `st.error()` and `st.stop()`
+- **Modern UI**: Glassmorphism effects, smooth animations, responsive design
+
+## Features Implemented
+
+### 1. Home Page
+- Overview of the dashboard with dataset statistics
+- Feature cards explaining each analytics capability
+- Metrics showing total tracks, time span, and genre count
+- Clean, inviting entry point
+
+### 2. Temporal Trend Analysis (Trends Tab)
+- Interactive line charts showing audio feature evolution
+- Year range slider for filtering data
+- Genre multi-select for comparative analysis
+- Feature selection dropdown (energy, danceability, valence, etc.)
+- AI-powered insights about detected trend changes
+
+### 3. What-If Simulator (Simulator Tab)
+- Feature weight sliders (8 adjustable features)
+- Real-time custom score calculation
+- Year range filtering
+- Visual representation of custom scores over time
+- Genre ranking by user preferences
+
+### 4. Anomaly Detector (Anomalies Tab)
+- Statistical anomaly detection using z-score
+- Sensitivity slider for tuning detection
+- Visual chart with anomalies highlighted
+- Detailed list of detected anomalies with explanations
+
+### 5. Story Mode (Stories Tab)
+- 4 pre-built data stories about music evolution
+- Chapter-based narrative experience
+- Visual representations for each story
+- Interactive story selection
 
 ## External Dependencies
 
@@ -53,6 +99,9 @@ Preferred communication style: Simple, everyday language.
 - **scikit-learn**: Machine learning utilities (StandardScaler)
 - **scipy**: Statistical functions (z-score calculations)
 
+### Fonts
+- **Righteous** (Google Fonts): Groovy, retro header font
+
 ### Data Sources
 - Primary: Synthetic data generation (no external API required)
 - Designed to work with: Spotify Tracks dataset (tracks.csv) if available
@@ -61,3 +110,11 @@ Preferred communication style: Simple, everyday language.
 - The application is self-contained with synthetic data generation
 - No database, authentication, or third-party API integrations
 - All data processing happens in-memory
+- Caching uses Streamlit's built-in cache
+
+## Deployment Status
+
+- **Current Status**: Development (running on port 5000)
+- **Framework**: Streamlit 1.52.2
+- **Python Version**: 3.11
+- **Ready for Deployment**: Yes - can be deployed to Replit or other platforms
