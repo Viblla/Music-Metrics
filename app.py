@@ -33,11 +33,15 @@ if 'current_page' not in st.session_state:
     st.session_state.current_page = 'home'
 
 # Load data
-@st.cache_data
+@st.cache_data(ttl=3600)
 def get_data():
     return load_or_generate_data()
 
-df = get_data()
+try:
+    df = get_data()
+except Exception as e:
+    st.error(f"Error loading data: {e}")
+    st.stop()
 
 # Sidebar Navigation
 with st.sidebar:
