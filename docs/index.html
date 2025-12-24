@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Metrics - Project Showcase</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --background-dark: #0a0a0a;
+            --background-light: #1a1a1a;
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --accent-teal: #00d9a3;
+            --accent-blue: #00b8ff;
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-dark);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 0;
+            line-height: 1.7;
+        }
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        header {
+            text-align: center;
+            padding-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+        header .team-info {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+        header .team-info strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        .section {
+            padding: 40px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .section:last-child {
+            border-bottom: none;
+        }
+        .section h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent-teal);
+            display: inline-block;
+        }
+        p, ul {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        ul li {
+            background: var(--background-light);
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-blue);
+        }
+        .button-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .button {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--accent-teal), var(--accent-blue));
+            color: #000;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 217, 163, 0.2);
+        }
+        .video-placeholder {
+            background-color: var(--background-light);
+            border: 2px dashed var(--border-color);
+            border-radius: 8px;
+            padding: 60px 20px;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+        .video-placeholder p {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Music Metrics: An Interactive Dashboard</h1>
+            <p class="team-info">
+                <strong>Team Member:</strong> Ahmed Bilal Naizm (Reg. No. 2022064)
+            </p>
+        </header>
+
+        <div class="section">
+            <h2>Project Description</h2>
+            <p>
+                Music Metrics is a sophisticated, interactive web-based dashboard designed for the deep exploration of musical trends from 1900 to 2021. Moving beyond static charts, this project provides a dynamic and engaging user experience, allowing users to filter, dissect, and visualize a massive dataset of over 586,000 songs. The dashboard reveals compelling narratives in music history, from the evolution of danceability to the sonic characteristics of hit songs, all through a sleek, modern interface.
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>Dataset Description</h2>
+            <p>
+                The analysis is powered by the comprehensive "Spotify Tracks DB" from Kaggle, which includes two primary files:
+            </p>
+            <ul>
+                <li><strong>tracks.csv:</strong> Contains detailed audio features for 586,672 songs, including energy, danceability, valence, tempo, and popularity.</li>
+                <li><strong>artists.csv:</strong> Provides genre information for over 1.1 million artists, which is used to classify songs and analyze genre-specific trends.</li>
+            </ul>
+            <p>This rich dataset enables a granular look at the defining attributes of music across different eras and genres.</p>
+        </div>
+
+        <div class="section">
+            <h2>Tools and Technologies</h2>
+            <ul>
+                <li><strong>HTML5:</strong> For the core structure and content of the web application.</li>
+                <li><strong>CSS3:</strong> For all styling, including the dark theme, responsive design, and custom animations.</li>
+                <li><strong>JavaScript (ES6+):</strong> For data processing, interactivity, and dynamic chart generation.</li>
+                <li><strong>Plotly.js:</strong> A powerful charting library used to create all 7 interactive visualizations.</li>
+                <li><strong>Git & GitHub Pages:</strong> For version control and hosting the live, publicly accessible dashboard.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Dashboard & Repository</h2>
+            <p>Explore the live interactive dashboard or browse the source code on GitHub.</p>
+            <div class="button-container">
+                <a href="dashboard.html" class="button">Launch Interactive Dashboard</a>
+            </div>
+            <div class="button-container" style="margin-top: 20px;">
+                <a href="https://github.com/Viblla/Music-Metrics" class="button" target="_blank">View on GitHub</a>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Video Walkthrough</h2>
+            <div class="video-placeholder">
+                <p>A video demonstration of the dashboard's features will be embedded here.</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 Ahmed Bilal Naizm. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+</body>
+</html>
